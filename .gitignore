@@ -28,7 +28,6 @@
 *.tsbuildinfo
 
 # tailwind
-*.css
 *.config.js
 
 # others
