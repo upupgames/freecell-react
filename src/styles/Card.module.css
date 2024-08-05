@@ -4,6 +4,7 @@
   border: 1px solid #000;
   border-radius: 8px;
   background-color: white;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,8 +13,20 @@
   box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
 }
 
+.topLeft {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.topRight {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
 .cardRank {
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
 }
 

@@ -59,8 +59,12 @@ const Card: React.FC<CardProps> = ({ suit, rank }) => {
 
   return (
     <div className={styles.card}>
-      <div className={styles.cardRank}>{rankDisplay()}</div>
-      <div className={suitClass()}>{suitDisplay()}</div>
+      <div className={styles.topLeft}>
+        <div className={styles.cardRank}>{rankDisplay()}</div>
+      </div>
+      <div className={styles.topRight}>
+        <div className={suitClass()}>{suitDisplay()}</div>
+      </div>
     </div>
   );
 };
