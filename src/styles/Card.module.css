@@ -1,3 +1,28 @@
 .card {
-  @apply border p-2 m-2 text-center;
+  width: 100px;
+  height: 140px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+.cardRank {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.cardSuitBlack {
+  font-size: 2em;
+  color: black;
+}
+
+.cardSuitRed {
+  font-size: 2em;
+  color: red;
 }
