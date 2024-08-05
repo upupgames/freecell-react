@@ -1,0 +1,13 @@
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.cardWrapper {
+    margin-top: -70px;
+    z-index: 1;
+}
+
+.cardWrapper:first-child {
+    margin-top: 0;
+}
