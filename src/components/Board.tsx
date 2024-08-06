@@ -1,5 +1,5 @@
 import React from 'react';
-import Column from './Column'
+import Column from '@components/Column'
 import Card, {Suit} from '@components/Card';
 import styles from '@styles/Board.module.css';
 

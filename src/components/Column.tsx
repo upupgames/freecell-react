@@ -1,5 +1,5 @@
 import React from 'react';
-import Card, {Suit} from './Card';
+import Card, {Suit} from '@components/Card';
 import styles from '@styles/Column.module.css';
 
 interface ColumnProps {
