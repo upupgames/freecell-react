@@ -1,3 +1,8 @@
 .board {
-  @apply grid grid-cols-8 gap-2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
 }
