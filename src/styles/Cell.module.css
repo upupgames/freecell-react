@@ -1,0 +1,11 @@
+.cell {
+  @apply w-24 h-36 border border-gray-400 rounded-lg bg-gray-200 flex justify-center items-center;
+}
+
+.column {
+  @apply flex flex-col gap-2;
+}
+
+.suit {
+  @apply text-5xl text-gray-400;
+}
