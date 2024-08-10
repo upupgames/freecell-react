@@ -2,6 +2,10 @@
   @apply w-24 h-36 border border-black rounded-lg bg-white relative flex flex-col justify-between items-center p-2 shadow;
 }
 
+.card + .card {
+  margin-top: -6rem;
+}
+
 .topLeft {
   @apply absolute top-2 left-2;
 }

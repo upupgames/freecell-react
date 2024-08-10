@@ -16,7 +16,7 @@ const Homecell: React.FC<HomecellProps> = ({ suit }) => {
     }[suit];
 
     return (
-        <Cell>
+        <Cell className={styles.home}>
           <span className={styles.suit}>{suitSymbol}</span>
         </Cell>
     );
