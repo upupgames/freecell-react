@@ -1,41 +1,27 @@
 .card {
-  width: 100px;
-  height: 140px;
-  border: 1px solid #000;
-  border-radius: 8px;
-  background-color: white;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  @apply w-24 h-36 border border-black rounded-lg bg-white relative flex flex-col justify-between items-center p-2 shadow;
+}
+
+.card + .card {
+  margin-top: -6rem;
 }
 
 .topLeft {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  @apply absolute top-2 left-2;
 }
 
 .topRight {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  @apply absolute top-2 right-2;
 }
 
 .cardRank {
-  font-size: 2em;
-  font-weight: bold;
+  @apply text-2xl font-bold;
 }
 
 .cardSuitBlack {
-  font-size: 2em;
-  color: black;
+  @apply text-2xl text-black;
 }
 
 .cardSuitRed {
-  font-size: 2em;
-  color: red;
+  @apply text-2xl text-red-500;
 }

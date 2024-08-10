@@ -1,3 +1,15 @@
-.board {
+/* .board {
   @apply grid grid-cols-8 gap-2;
+} */
+
+.board {
+  @apply grid grid-rows-2 gap-4;
+}
+
+.topRow {
+  @apply grid grid-cols-8 gap-4;
+}
+
+.columns {
+  @apply grid grid-cols-8 gap-4;
 }
