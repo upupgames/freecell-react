@@ -1,8 +1,4 @@
-/* TypeScript code for dealing Microsoft FreeCell / FreeCell Pro deals.
- * Copyright by Shlomi Fish, 2011.
- * Released under the MIT/Expat License
- * ( http://en.wikipedia.org/wiki/MIT_License ).
- */
+import { Suit } from '@components/Card';
 
 function perl_range(start: number, end: number): number[] {
     const ret: number[] = [];
@@ -12,13 +8,9 @@ function perl_range(start: number, end: number): number[] {
     return ret;
 }
 
-// 33 bit
 const MAX_SEED: bigint = (BigInt(1) << BigInt(31 + 2)) - BigInt(1);
 const X = BigInt(1) << BigInt(32);
 
-/*
- * Microsoft C Run-time-Library-compatible Random Number Generator
- */
 class MSRand {
     private gamenumber: string;
     private _seed: bigint;
@@ -29,14 +21,6 @@ class MSRand {
         const _seed = BigInt(this.gamenumber);
         this._seed = _seed;
         this._seedx = _seed < X ? _seed : _seed - X;
-    }
-
-    public getSeed(): bigint {
-        return this._seed;
-    }
-
-    private setSeed(seed: bigint): void {
-        this._seed = seed;
     }
 
     private _rando(): bigint {
@@ -76,40 +60,27 @@ class MSRand {
     }
 }
 
-/*
- * Microsoft Windows Freecell / Freecell Pro boards generation.
- *
- * See:
- *
- * - http://rosettacode.org/wiki/Deal_cards_for_FreeCell
- * - http://www.solitairelaboratory.com/mshuffle.txt
- *
- * Under MIT/Expat Licence.
- */
+function renderCard(card: number) {
+    const suit = card % 4;
+    const rank = Math.floor(card / 4) + 1;
+    const suits = [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades];
+    return { suit: suits[suit], rank };
+}
 
-function deal_ms_fc_board(gamenumber: string): string[][] {
+function deal_ms_fc_board(gamenumber: string) {
     const randomizer = new MSRand({ gamenumber });
-    const num_cols: number = 8;
+    const numCols = 8;
 
-    const columns: string[][] = perl_range(0, num_cols - 1).map(() => []);
-    let deck: number[] = perl_range(0, 4 * 13 - 1);
+    const columns: { suit: Suit; rank: number }[][] = Array.from({ length: numCols }, () => []);
+    let deck = perl_range(0, 4 * 13 - 1);
 
     randomizer.shuffle(deck);
-    deck = deck.reverse();
-
-    function render_card(card: number): string {
-        const suit = card % 4;
-        const rank = Math.floor(card / 4);
-        return "A23456789TJQK".charAt(rank) + "CDHS".charAt(suit);
-    }
 
     for (let i = 0; i < 52; ++i) {
-        columns[i % num_cols].push(render_card(deck[i]));
+        columns[i % numCols].push(renderCard(deck[i]));
     }
 
     return columns;
 }
 
-module.exports = {
-    deal_ms_fc_board
-};
+export { deal_ms_fc_board };
