@@ -1,26 +1,21 @@
-import React from 'react';
+"use client"; // Add this line at the top
+
+import React, { useState, useEffect } from 'react';
 import ColumnCell from '@components/ColumnCell';
 import Freecell from '@components/Freecell';
 import Homecell from '@components/Homecell';
 import styles from '@styles/Board.module.css';
 import { Suit } from '@components/Card';
 
+import { deal_ms_fc_board } from '@utils/dealMsFcBoard';
+
 const Board: React.FC = () => {
-  const columns = [
-    [
-      { suit: Suit.Hearts, rank: 1 },
-      { suit: Suit.Clubs, rank: 2 },
-      { suit: Suit.Spades, rank: 3 },
-      { suit: Suit.Diamonds, rank: 4 },
-    ],
-    [{ suit: Suit.Diamonds, rank: 2 }],
-    [{ suit: Suit.Clubs, rank: 3 }],
-    [{ suit: Suit.Spades, rank: 4 }],
-    [{ suit: Suit.Hearts, rank: 5 }],
-    [{ suit: Suit.Diamonds, rank: 6 }],
-    [{ suit: Suit.Clubs, rank: 7 }],
-    [{ suit: Suit.Spades, rank: 8 }],
-  ];
+  const [columns, setColumns] = useState<{ suit: Suit; rank: number }[][]>([]);
+
+  useEffect(() => {
+    const initialColumns = deal_ms_fc_board('1'); // Change '1' to any game number you want to initialize
+    setColumns(initialColumns);
+  }, []);
 
   return (
     <div className={styles.board}>
