@@ -1,6 +1,6 @@
-import React from 'react';
-import Card, { Suit } from '@components/Card';
-import styles from '@styles/Cell.module.css';
+import React from "react";
+import Card, { Suit } from "@components/Card";
+import styles from "@styles/Cell.module.css";
 
 interface ColumnProps {
   cards: { suit: Suit; rank: number }[];

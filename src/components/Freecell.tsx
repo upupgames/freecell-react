@@ -1,8 +1,8 @@
-import React from 'react';
-import Cell from '@components/Cell';
+import React from "react";
+import Cell from "@components/Cell";
 
 const Freecell: React.FC = () => {
-    return <Cell />;
+  return <Cell />;
 };
 
 export default Freecell;

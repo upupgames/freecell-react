@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const useGameLogic = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [gameState, setGameState] = useState({
     // Initialize game state
   });
@@ -9,6 +10,7 @@ const useGameLogic = () => {
     // Implement logic to start a new game
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const moveCard = (fromColumn: number, toColumn: number) => {
     // Implement logic to move a card
   };
