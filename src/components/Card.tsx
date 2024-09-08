@@ -2,7 +2,7 @@ import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 import styles from "@styles/Card.module.css";
 
-export enum Suit {
+enum Suit {
   Clubs = 0,
   Diamonds = 1,
   Hearts = 2,
@@ -90,3 +90,5 @@ const Card: React.FC<CardProps> = ({ id, suit, rank }) => {
 };
 
 export default Card;
+
+export { Suit };  export type { CardProps };

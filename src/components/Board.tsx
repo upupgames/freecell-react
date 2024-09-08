@@ -7,7 +7,7 @@ import ColumnCell from "@components/ColumnCell";
 import Freecell from "@components/Freecell";
 import Homecell from "@components/Homecell";
 
-import { Suit } from "@components/Card";
+import { CardProps, Suit } from "@components/Card";
 import { deal_ms_fc_board } from "@utils/dealMsFcBoard";
 
 import styles from "@styles/Board.module.css";
@@ -15,7 +15,7 @@ import styles from "@styles/Board.module.css";
 // The Board component encapsulate all components of a Freecell board.
 const Board: React.FC = () => {
   // Declare and initialize column values.
-  const [columns, setColumns] = useState<{ id: string, suit: Suit; rank: number }[][]>([]);
+  const [columns, setColumns] = useState<CardProps[][]>([]);
   useEffect(() => {
     const initialColumns = deal_ms_fc_board("1"); // Deal the board for game '1' (you can change the game number).
     setColumns(initialColumns);

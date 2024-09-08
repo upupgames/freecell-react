@@ -1,4 +1,4 @@
-import { Suit } from "@components/Card";
+import { CardProps, Suit } from "@components/Card";
 
 function perl_range(start: number, end: number): number[] {
   const ret: number[] = [];
@@ -76,7 +76,7 @@ function deal_ms_fc_board(gamenumber: string) {
   const randomizer = new MSRand({ gamenumber });
   const numCols = 8;
 
-  const columns: { id: string, suit: Suit; rank: number }[][] = Array.from(
+  const columns: CardProps[][] = Array.from(
     { length: numCols },
     () => [],
   );

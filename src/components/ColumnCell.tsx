@@ -1,12 +1,12 @@
 import React from "react";
-import { Suit } from "@components/Card";
+import { CardProps, Suit } from "@components/Card";
 import Cell from "@components/Cell";
 import Column from "@components/Column";
 import styles from "@styles/Cell.module.css";
 
 interface ColumnCellProps {
   id: string;
-  cards: { id: string, suit: Suit; rank: number }[];
+  cards: CardProps[];
 }
 
 const ColumnCell: React.FC<ColumnCellProps> = ({ id, cards }) => {

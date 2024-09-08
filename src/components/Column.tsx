@@ -1,9 +1,9 @@
 import React from "react";
-import Card, { Suit } from "@components/Card";
+import Card, { CardProps, Suit } from "@components/Card";
 import styles from "@styles/Cell.module.css";
 
 interface ColumnProps {
-  cards: { id: string, suit: Suit; rank: number }[];
+  cards: CardProps[];
 }
 
 const Column: React.FC<ColumnProps> = ({ cards = [] }) => {
