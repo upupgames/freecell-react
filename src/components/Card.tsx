@@ -17,7 +17,7 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({ id, suit, rank }) => {
   // Setup draggable logic.
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id,
   });
 
@@ -25,7 +25,8 @@ const Card: React.FC<CardProps> = ({ id, suit, rank }) => {
   const style = {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined
+      : undefined,
+    zIndex: isDragging ? 1000 : "auto",
   };
   
   const rankDisplay = () => {
