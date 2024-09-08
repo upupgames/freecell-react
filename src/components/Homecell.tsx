@@ -4,10 +4,11 @@ import { Suit } from "@components/Card";
 import styles from "@styles/Cell.module.css";
 
 interface HomecellProps {
+  id: string;
   suit: Suit;
 }
 
-const Homecell: React.FC<HomecellProps> = ({ suit }) => {
+const Homecell: React.FC<HomecellProps> = ({ id, suit }) => {
   const suitSymbol = {
     [Suit.Hearts]: "♥",
     [Suit.Diamonds]: "♦",
@@ -16,7 +17,7 @@ const Homecell: React.FC<HomecellProps> = ({ suit }) => {
   }[suit];
 
   return (
-    <Cell className={styles.home}>
+    <Cell id={id} className={styles.home}>
       <span className={styles.suit}>{suitSymbol}</span>
     </Cell>
   );

@@ -5,12 +5,13 @@ import Column from "@components/Column";
 import styles from "@styles/Cell.module.css";
 
 interface ColumnCellProps {
-  cards: { suit: Suit; rank: number }[];
+  id: string;
+  cards: { id: string, suit: Suit; rank: number }[];
 }
 
-const ColumnCell: React.FC<ColumnCellProps> = ({ cards }) => {
+const ColumnCell: React.FC<ColumnCellProps> = ({ id, cards }) => {
   return (
-    <Cell className={styles.column}>
+    <Cell id={id} className={styles.column}>
       <Column cards={cards} />
     </Cell>
   );

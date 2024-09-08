@@ -1,4 +1,5 @@
 import React from "react";
+import { useDraggable } from "@dnd-kit/core";
 import styles from "@styles/Card.module.css";
 
 export enum Suit {
@@ -9,11 +10,24 @@ export enum Suit {
 }
 
 type CardProps = {
+  id: string;
   suit: Suit;
   rank: number;
 };
 
-const Card: React.FC<CardProps> = ({ suit, rank }) => {
+const Card: React.FC<CardProps> = ({ id, suit, rank }) => {
+  // Setup draggable logic.
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+  });
+
+  // Apply the drag transformation if the card is being dragged
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined
+  };
+  
   const rankDisplay = () => {
     switch (rank) {
       case 1:
@@ -58,7 +72,13 @@ const Card: React.FC<CardProps> = ({ suit, rank }) => {
   };
 
   return (
-    <div className={styles.card}>
+    <div
+      ref={setNodeRef} // Register this div as draggable.
+      style={style}    // Apply drag transformations
+      {...listeners}   // Add drag listeners
+      {...attributes}  // Add drag attributes
+      className={styles.card}
+    >
       <div className={styles.topLeft}>
         <div className={styles.cardRank}>{rankDisplay()}</div>
       </div>

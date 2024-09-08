@@ -63,17 +63,20 @@ class MSRand {
 }
 
 function renderCard(card: number) {
+  const id = `card-${card}`;
+
   const suit = card % 4;
   const rank = Math.floor(card / 4) + 1;
   const suits = [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades];
-  return { suit: suits[suit], rank };
+  
+  return { id, suit: suits[suit], rank };
 }
 
 function deal_ms_fc_board(gamenumber: string) {
   const randomizer = new MSRand({ gamenumber });
   const numCols = 8;
 
-  const columns: { suit: Suit; rank: number }[][] = Array.from(
+  const columns: { id: string, suit: Suit; rank: number }[][] = Array.from(
     { length: numCols },
     () => [],
   );
