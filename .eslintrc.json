@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"  // Prettier integration
+  ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  }
+}

@@ -1,48 +1,63 @@
-import React from 'react';
-import styles from '@styles/Card.module.css';
+import React from "react";
+import { useDraggable } from "@dnd-kit/core";
+import styles from "@styles/Card.module.css";
 
-export enum Suit {
+enum Suit {
   Clubs = 0,
   Diamonds = 1,
   Hearts = 2,
-  Spades = 3
+  Spades = 3,
 }
 
 type CardProps = {
+  id: string;
   suit: Suit;
   rank: number;
 };
 
-const Card: React.FC<CardProps> = ({ suit, rank }) => {
+const Card: React.FC<CardProps> = ({ id, suit, rank }) => {
+  // Setup draggable logic.
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id,
+  });
+
+  // Apply the drag transformation if the card is being dragged
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    zIndex: isDragging ? 1000 : "auto",
+  };
+  
   const rankDisplay = () => {
     switch (rank) {
       case 1:
-        return 'A';
+        return "A";
       case 11:
-        return 'J'
+        return "J";
       case 12:
-        return 'Q'
+        return "Q";
       case 13:
-        return 'K'
+        return "K";
       default:
         return rank.toString();
     }
-  }
+  };
 
   const suitDisplay = () => {
     switch (suit) {
       case Suit.Clubs:
-        return '♣';
+        return "♣";
       case Suit.Diamonds:
-        return '♦';
+        return "♦";
       case Suit.Hearts:
-        return '♥';
+        return "♥";
       case Suit.Spades:
-        return '♠';
+        return "♠";
       default:
-        return '';
+        return "";
     }
-  }
+  };
 
   const suitClass = () => {
     switch (suit) {
@@ -53,12 +68,18 @@ const Card: React.FC<CardProps> = ({ suit, rank }) => {
       case Suit.Spades:
         return styles.cardSuitBlack;
       default:
-        return '';
+        return "";
     }
-  }
+  };
 
   return (
-    <div className={styles.card}>
+    <div
+      ref={setNodeRef} // Register this div as draggable.
+      style={style}    // Apply drag transformations
+      {...listeners}   // Add drag listeners
+      {...attributes}  // Add drag attributes
+      className={styles.card}
+    >
       <div className={styles.topLeft}>
         <div className={styles.cardRank}>{rankDisplay()}</div>
       </div>
@@ -70,3 +91,5 @@ const Card: React.FC<CardProps> = ({ suit, rank }) => {
 };
 
 export default Card;
+
+export { Suit };  export type { CardProps };

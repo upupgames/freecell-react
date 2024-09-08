@@ -1,4 +1,4 @@
-import FreecellGame from '@components/FreecellGame';
+import FreecellGame from "@components/FreecellGame";
 
 const HomePage: React.FC = () => {
   return (

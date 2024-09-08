@@ -1,8 +1,12 @@
-import React from 'react';
-import Cell from '@components/Cell';
+import React from "react";
+import Cell from "@components/Cell";
 
-const Freecell: React.FC = () => {
-    return <Cell />;
+interface FreecellProps {
+  id: string;
+}
+
+const Freecell: React.FC<FreecellProps> = ({ id }) => {
+  return <Cell id={id} />;
 };
 
 export default Freecell;
