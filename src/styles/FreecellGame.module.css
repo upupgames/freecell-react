@@ -1,7 +1,16 @@
-.game {
-  @apply flex flex-col items-center;
+.pixiContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;   /* Set a max width */
+  height: auto;       /* Maintain aspect ratio */
+  background-color: white; /* Optional background for Pixi canvas container */
+  border: 2px solid #ccc;   /* Optional border for Pixi container */
 }
 
 .title {
-  @apply text-2xl font-bold my-4;
+  margin-bottom: 20px; /* Add some space between the title and Pixi container */
+  font-size: 24px;
+  text-align: center;
 }
