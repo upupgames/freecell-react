@@ -45,7 +45,6 @@ const FreecellGame: React.FC = () => {
 
   return (
     <div className={styles.game}>
-      <h1 className={styles.title}>Freecell Game</h1>
       <div ref={pixiAppRef} className={styles.pixiContainer}></div>
     </div>
   );
