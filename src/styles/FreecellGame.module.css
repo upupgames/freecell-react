@@ -2,6 +2,5 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: rgb(21, 146, 115); /* Optional background for Pixi canvas container */
-  border: 2px solid #1624a5;   /* Optional border for Pixi container */
+  border: 5px solid #1624a5;   /* Optional border for Pixi container */
 }
