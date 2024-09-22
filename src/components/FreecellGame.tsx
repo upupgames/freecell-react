@@ -2,70 +2,70 @@
 
 import React, { useEffect, useRef } from "react";
 import * as PIXI from "pixi.js";
+import { Application, Assets, Sprite } from 'pixi.js';
 import styles from "@styles/FreecellGame.module.css";
 
 const FreecellGame: React.FC = () => {
-  const pixiAppRef = useRef<HTMLDivElement>(null); // Reference to the Pixi container div
+  const pixiAppRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let app: Application | null = null;
+  
     const initPixiApp = async () => {
       if (!pixiAppRef.current) {
         console.error("Div reference (pixiAppRef) is undefined.");
         return;
       }
-
-      // Clear the container before appending to avoid multiple canvases
-      if (pixiAppRef.current.firstChild) {
-        pixiAppRef.current.removeChild(pixiAppRef.current.firstChild);
+  
+      // Destroy any previous app if it exists
+      if (app) {
+        app.destroy(true, { children: true });
       }
-
+  
       // Create a new Pixi application instance
-      const app = new PIXI.Application();
-
-      // Initialize the Pixi application with dynamic resizing to the window
+      app = new Application();
+  
+      // Initialize the Pixi application
       await app.init({
-        resizeTo: pixiAppRef.current, // Resize based on the container div
-        backgroundColor: 0x1099bb,    // Background color
-        autoDensity: true,            // High-DPI display support
+        background: '#1099bb',
+        resizeTo: pixiAppRef.current,
       });
-
-      // Load the bunny texture.
-      const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
-
-      // Create a new Sprite from an image path
-      const bunny = new PIXI.Sprite(texture);
-
-      // Add to stage
-      app.stage.addChild(bunny);
-
-      // Center the sprite's anchor point
-      bunny.anchor.set(0.5);
-
-      // Move the sprite to the center of the screen
-      bunny.x = app.screen.width / 2;
-      bunny.y = app.screen.height / 2;
-
+  
       // Append the Pixi canvas to the div element
       pixiAppRef.current.appendChild(app.canvas);
-
-      // Clean up the Pixi application when the component unmounts
-      return () => {
-        app.destroy(true, { children: true });
-      };
+  
+      // Load the bunny texture
+      const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
+      const bunny = new Sprite(texture);
+  
+      // Add the sprite to the stage
+      app.stage.addChild(bunny);
+  
+      // Center the sprite's anchor point and position it
+      bunny.anchor.set(0.5);
+      bunny.x = app.screen.width / 2;
+      bunny.y = app.screen.height / 2;
     };
-
+  
     initPixiApp();
-
+  
     // Clean up Pixi content on component unmount
     return () => {
-      if (pixiAppRef.current) {
-        pixiAppRef.current.innerHTML = ''; // Clear the content to avoid memory leaks
+      if (app) {
+        try {
+          app.destroy(true, { children: true });
+        } catch (error) {
+          console.error("Error destroying Pixi app:", error);
+        }
+        app = null;
       }
     };
   }, []);
 
   return (
+    <div className={styles.game}>
       <div ref={pixiAppRef} className={styles.pixiContainer}></div>
+    </div>
   );
 };
 
