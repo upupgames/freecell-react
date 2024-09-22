@@ -1,7 +1,7 @@
 import { Application, Assets, Container, Sprite } from 'pixi.js';
 
 // Starts Pixi application in the given container reference.
-export const startPixiApp = async (container) => {
+export const startPixiApp = async (container: HTMLDivElement): Promise<Application> => {
   // Create a new Pixi application
   const app = new Application()
   await app.init({
