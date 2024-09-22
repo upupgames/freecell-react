@@ -1,9 +1,11 @@
-import { Application, Assets, Container, Sprite } from 'pixi.js';
+import { Application, Assets, Container, Sprite } from "pixi.js";
 
 // Starts Pixi application in the given container reference.
-export const startPixiApp = async (container: HTMLDivElement): Promise<Application> => {
+export const startPixiApp = async (
+  container: HTMLDivElement,
+): Promise<Application> => {
   // Create a new Pixi application
-  const app = new Application()
+  const app = new Application();
   await app.init({
     resizeTo: window, // Resize the app to the window size
     backgroundColor: 0x1099bb, // Background color
@@ -17,7 +19,7 @@ export const startPixiApp = async (container: HTMLDivElement): Promise<Applicati
   app.stage.addChild(bunnyContainer);
 
   // Load the bunny texture
-  const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
+  const texture = await Assets.load("https://pixijs.com/assets/bunny.png");
 
   // Create a 5x5 grid of bunnies in the container
   for (let i = 0; i < 25; i++) {
