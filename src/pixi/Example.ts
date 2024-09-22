@@ -1,5 +1,5 @@
 import { Application } from 'pixi.js';
-import { BunnyApp } from '@pixi/BunnyApp';
+import { BunnyGenerator } from '@pixi/BunnyGenerator';  // Import the BunnyGenerator class
 
 export const startPixiApp = async (container: HTMLDivElement): Promise<Application> => {
   const app = new Application();
@@ -11,7 +11,7 @@ export const startPixiApp = async (container: HTMLDivElement): Promise<Applicati
   container.appendChild(app.canvas);
 
   // Initialize the BunnyApp
-  const bunnyApp = new BunnyApp(app);
+  new BunnyGenerator(app);
 
   return app;
 };
