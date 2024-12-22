@@ -1,11 +1,11 @@
 import React from 'react';
-import PixiBinder from '@components/PixiBinder'; // Adjust the import path as needed
+import PhasorWindow from "@components/PhasorWindow"
 
 const FreecellGame: React.FC = () => {
   return (
     <div>
-      <h1>Pixi.js Bunny Grid</h1>
-      <PixiBinder />
+      <h1>Phasor Sandbox</h1>
+      <PhasorWindow/>
     </div>
   );
 };
