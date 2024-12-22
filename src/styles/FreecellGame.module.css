@@ -1,6 +1,0 @@
-.pixiContainer {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  border: 5px solid #1624a5;   /* Optional border for Pixi container */
-}
