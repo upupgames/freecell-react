@@ -1,12 +1,11 @@
-import React from "react";
-import Board from "@components/Board";
-import styles from "@styles/FreecellGame.module.css";
+import React from 'react';
+import PhasorWindow from "@components/PhasorWindow"
 
 const FreecellGame: React.FC = () => {
   return (
-    <div className={styles.game}>
-      <h1 className={styles.title}>Freecell Game</h1>
-      <Board />
+    <div>
+      <h1>Phasor Sandbox</h1>
+      <PhasorWindow/>
     </div>
   );
 };
