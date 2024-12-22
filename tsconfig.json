@@ -21,10 +21,12 @@
     "paths": {
       "@app/*": ["app/*"],
       "@components/*": ["components/*"],
+      "@pixi/*": ["pixi/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
       "@hooks/*": ["hooks/*"],
-      "@contexts/*": ["contexts/*"]
+      "@contexts/*": ["contexts/*"],
+      "@textures/*": ["../public/textures/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
