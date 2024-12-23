@@ -1,5 +1,5 @@
 import Card from "./Card";
-import { NUM_CARDS, Suit } from "./constants/deck";
+import { NUM_CARDS, Suit, SUIT_COLOR } from "./constants/deck";
 import type { PileId } from "./constants/table";
 import { TABLEAU_PILES } from "./constants/table";
 
@@ -58,6 +58,28 @@ export default class Deck {
           curr.pile === card.pile && curr.position >= card.position
       )
       .sort((a: Card, b: Card) => a.position - b.position);
+  }
+
+  public validDraggableCard(card: Card): boolean {
+    const children: Card[] = this.cardChildren(card);
+
+    for (let i = 1; i < children.length; i++)
+    {
+      const current: Card = children[i];
+      const previous: Card = children[i-1];
+
+      if (current.value != previous.value - 1)
+      {
+        return false;
+      }
+
+      if (SUIT_COLOR[current.suit] === SUIT_COLOR[previous.suit])
+      {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   public topCard(pile: PileId): Card | null {

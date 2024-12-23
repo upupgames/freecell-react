@@ -72,7 +72,9 @@ export default class GameState extends Phaser.Scene {
         _pointer: Phaser.Input.Pointer,
         gameObject: Phaser.GameObjects.GameObject
       ) => {
-        if (gameObject instanceof Card) {
+        this.dragChildren = [];
+
+        if (gameObject instanceof Card && this.deck.validDraggableCard(gameObject)) {
           this.dragCardStart(gameObject);
         }
       },
