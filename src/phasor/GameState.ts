@@ -1,5 +1,3 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable max-lines */
 import * as Phaser from "phaser";
 
 import Deck from "./Deck";
@@ -153,7 +151,7 @@ export default class GameState extends Phaser.Scene {
       .on(
         "pointerdown",
         () => {
-          this.deck.shuffle(this.deck.cards);
+          this.deck.shuffle(this.deck.cards, 476);
           this.deck.deal(this);
           this.winText.setVisible(false);
           this.score = 0;
