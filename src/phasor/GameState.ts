@@ -24,6 +24,8 @@ export default class GameState extends Phaser.Scene {
 
   private winText!: Phaser.GameObjects.Text;
 
+  private isDragging : boolean = false;
+
   public constructor() {
     super(sceneConfig);
   }
@@ -31,6 +33,7 @@ export default class GameState extends Phaser.Scene {
   public create(): void {
     // Game state variables
     this.score = 0;
+    this.isDragging = false;
     this.dragChildren = [];
 
     // Add background
@@ -124,6 +127,20 @@ export default class GameState extends Phaser.Scene {
         }
       },
       this
+    );
+
+
+    this.input.on(
+      "gameobjectup",
+      (
+        _pointer: Phaser.Input.Pointer,
+        gameObject: Phaser.GameObjects.GameObject
+      ) => {
+        if (gameObject instanceof Card) {
+          this.pointerUpCard(gameObject);
+        }
+      },
+      this  
     );
   }
 
@@ -245,6 +262,7 @@ export default class GameState extends Phaser.Scene {
   }
 
   public dragCardStart(card: Card): void {
+    this.isDragging = true;
     // Populate drag children
     this.dragChildren = [];
     if (TABLEAU_PILES.includes(card.pile)) {
@@ -325,6 +343,16 @@ export default class GameState extends Phaser.Scene {
       topCardNew.flip(this);
       this.flipScore(topCardNew.pile);
     }
+  }
+
+  public pointerUpCard(card: Card) {
+    if (!this.isDragging) {
+      console.log("The card was clicked!");
+    }
+    else {
+      console.log("The card was dragged!");
+    }
+    this.isDragging = false;
   }
 
   public update(): void {

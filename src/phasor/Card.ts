@@ -68,6 +68,7 @@ export default class Card extends Phaser.GameObjects.Sprite {
   public flip(scene: Phaser.Scene): void {
     this.setTexture("img_cards", this.getSpriteIndex(this.suit, this.value));
     scene.input.setDraggable(this);
+    scene.input.dragTimeThreshold = 10;
     this.flipped = true;
   }
 
