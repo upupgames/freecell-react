@@ -18,6 +18,8 @@ export default class GameState extends Phaser.Scene {
 
   private dragChildren: Card[] = [];
 
+  private foundationPiles: Pile[] = [];
+
   private deck!: Deck;
 
   private scoreText!: Phaser.GameObjects.Text;
@@ -52,6 +54,10 @@ export default class GameState extends Phaser.Scene {
     Object.values(PileId).forEach((pileId) => {
       const pile = new Pile(this, pileId);
       this.add.existing(pile);
+
+      if (FOUNDATION_PILES.includes(pile.pileId)) {
+        this.foundationPiles.push(pile);
+      }
 
       // Draw zone
       if (pile.pileId === PileId.Stock) {
@@ -347,6 +353,9 @@ export default class GameState extends Phaser.Scene {
 
   public pointerUpCard(card: Card) {
     if (!this.isDragging) {
+      this.foundationPiles.forEach((pile: Pile) => {
+        this.dropCard(card, pile);
+      });
       console.log("The card was clicked!");
     }
     else {
