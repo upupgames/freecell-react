@@ -299,7 +299,11 @@ export default class GameState extends Phaser.Scene {
   }
 
   // eslint-disable-next-line
-  public dropCard(card: Card, dropZone: Phaser.GameObjects.GameObject): void {
+  public dropCard(card: Card, dropZone: Phaser.GameObjects.GameObject): boolean {
+    
+    
+    let dropped = false;
+    
     // Potentially unsafe!
     const pileId = dropZone.name as PileId;
 
@@ -315,6 +319,7 @@ export default class GameState extends Phaser.Scene {
       ) {
         this.dropScore(pileId, card.pile);
         card.reposition(pileId, 0);
+        dropped = true;
       }
     }
 
@@ -326,6 +331,7 @@ export default class GameState extends Phaser.Scene {
       ) {
         this.dropScore(pileId, card.pile);
         card.reposition(pileId, topCard.position + 1);
+        dropped = true;
       }
     }
 
@@ -334,6 +340,7 @@ export default class GameState extends Phaser.Scene {
       if (card.suit === topCard.suit && card.value === topCard.value + 1) {
         this.dropScore(pileId, card.pile);
         card.reposition(pileId, topCard.position + 1);
+        dropped = true;
       }
     }
 
@@ -349,13 +356,19 @@ export default class GameState extends Phaser.Scene {
       topCardNew.flip(this);
       this.flipScore(topCardNew.pile);
     }
+
+    return dropped;
   }
 
   public pointerUpCard(card: Card) {
     if (!this.isDragging) {
-      this.foundationPiles.forEach((pile: Pile) => {
-        this.dropCard(card, pile);
-      });
+      
+      for (const pile of this.foundationPiles) {
+        if (!FOUNDATION_PILES.includes(card.pile) && this.dropCard(card,pile)) {
+          console.log("moving card to foundation pile");
+          break;
+        }
+      }
       console.log("The card was clicked!");
     }
     else {
