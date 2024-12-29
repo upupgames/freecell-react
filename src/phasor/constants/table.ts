@@ -4,6 +4,10 @@ import { CARD_DIMENSIONS } from "./deck";
  * Define the constants for the table.
  */
 export enum PileId {
+  Cell1 = "Cell_1",
+  Cell2 = "Cell_2",
+  Cell3 = "Cell_3",
+  Cell4 = "Cell_4",
   Tableau1 = "TABLEAU_1",
   Tableau2 = "TABLEAU_2",
   Tableau3 = "TABLEAU_3",
@@ -18,6 +22,16 @@ export enum PileId {
   Foundation4 = "FOUNDATION_4",
   None = "NONE",
 }
+
+/**
+ * Define cells
+ */
+export const CELL_PILES = [
+  PileId.Cell1,
+  PileId.Cell2,
+  PileId.Cell3,
+  PileId.Cell4,
+]
 
 /**
  * Define tableau piles
@@ -55,10 +69,15 @@ export const PILE_POSITIONS: Record<PileId, Phaser.Math.Vector2> = {
   //[PileId.Stock]: new Phaser.Math.Vector2(110, 120),
   //[PileId.Discard]: new Phaser.Math.Vector2(110 + PILE_OFFSET + 20, 120),
 
-  [PileId.Foundation1]: new Phaser.Math.Vector2(390, 120),
-  [PileId.Foundation2]: new Phaser.Math.Vector2(390 + PILE_OFFSET, 120),
-  [PileId.Foundation3]: new Phaser.Math.Vector2(390 + 2 * PILE_OFFSET, 120),
-  [PileId.Foundation4]: new Phaser.Math.Vector2(390 + 3 * PILE_OFFSET, 120),
+  [PileId.Cell1]: new Phaser.Math.Vector2(80, 120),
+  [PileId.Cell2]: new Phaser.Math.Vector2(80 + PILE_OFFSET, 120),
+  [PileId.Cell3]: new Phaser.Math.Vector2(80 + 2 * PILE_OFFSET, 120),
+  [PileId.Cell4]: new Phaser.Math.Vector2(80 + 3 * PILE_OFFSET, 120),
+
+  [PileId.Foundation1]: new Phaser.Math.Vector2(80 + 4 * PILE_OFFSET, 120),
+  [PileId.Foundation2]: new Phaser.Math.Vector2(80 + 5 * PILE_OFFSET, 120),
+  [PileId.Foundation3]: new Phaser.Math.Vector2(80 + 6 * PILE_OFFSET, 120),
+  [PileId.Foundation4]: new Phaser.Math.Vector2(80 + 7 * PILE_OFFSET, 120),
 
   [PileId.Tableau1]: new Phaser.Math.Vector2(80, 280),
   [PileId.Tableau2]: new Phaser.Math.Vector2(80 + PILE_OFFSET, 280),
