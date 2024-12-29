@@ -20,6 +20,8 @@ export default class GameState extends Phaser.Scene {
 
   private foundationPiles: Pile[] = [];
 
+  private cellPiles: Pile[] = [];
+
   private deck!: Deck;
 
   private scoreText!: Phaser.GameObjects.Text;
@@ -59,6 +61,10 @@ export default class GameState extends Phaser.Scene {
         this.foundationPiles.push(pile);
       }
 
+      else if (CELL_PILES.includes(pile.pileId)) {
+        this.cellPiles.push(pile);
+      }
+
     });
   }
 
@@ -72,7 +78,7 @@ export default class GameState extends Phaser.Scene {
       ) => {
         this.dragChildren = [];
 
-        if (gameObject instanceof Card && this.deck.validDraggableCard(gameObject)) {
+        if (gameObject instanceof Card && this.deck.validDraggableCard(gameObject, this.determineMaxCardsForMove())) {
           this.dragCardStart(gameObject);
         }
       },
@@ -322,6 +328,17 @@ export default class GameState extends Phaser.Scene {
       console.log("The card was dragged!");
     }
     this.isDragging = false;
+  }
+
+  public determineMaxCardsForMove(): number {
+    let maxCards: number = 1;
+    for (const cell of this.cellPiles) {
+      if (!this.deck.topCard(cell.pileId)) {
+        maxCards += 1;
+      }
+    }
+
+    return maxCards;
   }
 
   public update(): void {

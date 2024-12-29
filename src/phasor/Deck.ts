@@ -60,8 +60,12 @@ export default class Deck {
       .sort((a: Card, b: Card) => a.position - b.position);
   }
 
-  public validDraggableCard(card: Card): boolean {
+  public validDraggableCard(card: Card, maxCards: number): boolean {
     const children: Card[] = this.cardChildren(card);
+
+    if (children.length > maxCards) {
+      return false;
+    }
 
     for (let i = 1; i < children.length; i++)
     {
