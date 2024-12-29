@@ -47,12 +47,7 @@ export default class Card extends Phaser.GameObjects.Sprite {
 
     this.setDepth(this.position + 10);
 
-    if (this.pile === PileId.Stock || this.pile === PileId.Discard) {
-      this.setPosition(
-        PILE_POSITIONS[this.pile].x + position,
-        PILE_POSITIONS[this.pile].y
-      );
-    } else if (TABLEAU_PILES.includes(this.pile)) {
+    if (TABLEAU_PILES.includes(this.pile)) {
       this.setPosition(
         PILE_POSITIONS[this.pile].x,
         PILE_POSITIONS[this.pile].y + position * STACK_OFFSET

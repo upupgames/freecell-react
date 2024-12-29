@@ -4,8 +4,6 @@ import { CARD_DIMENSIONS } from "./deck";
  * Define the constants for the table.
  */
 export enum PileId {
-  Discard = "DISCARD",
-  Stock = "STOCK",
   Tableau1 = "TABLEAU_1",
   Tableau2 = "TABLEAU_2",
   Tableau3 = "TABLEAU_3",
@@ -54,8 +52,8 @@ const PILE_OFFSET = CARD_DIMENSIONS.width + 10;
  * Positions of piles on screen
  */
 export const PILE_POSITIONS: Record<PileId, Phaser.Math.Vector2> = {
-  [PileId.Stock]: new Phaser.Math.Vector2(110, 120),
-  [PileId.Discard]: new Phaser.Math.Vector2(110 + PILE_OFFSET + 20, 120),
+  //[PileId.Stock]: new Phaser.Math.Vector2(110, 120),
+  //[PileId.Discard]: new Phaser.Math.Vector2(110 + PILE_OFFSET + 20, 120),
 
   [PileId.Foundation1]: new Phaser.Math.Vector2(390, 120),
   [PileId.Foundation2]: new Phaser.Math.Vector2(390 + PILE_OFFSET, 120),

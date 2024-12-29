@@ -59,17 +59,6 @@ export default class GameState extends Phaser.Scene {
         this.foundationPiles.push(pile);
       }
 
-      // Draw zone
-      if (pile.pileId === PileId.Stock) {
-        pile.on(
-          "pointerdown",
-          () => {
-            this.drawCard();
-          },
-          this
-        );
-        pile.setDepth(99);
-      }
     });
   }
 
@@ -199,37 +188,6 @@ export default class GameState extends Phaser.Scene {
       .setVisible(false);
   }
 
-  public drawCard(): void {
-    // Get top card on current stack
-    const topCard = this.deck.topCard(PileId.Stock);
-
-    // Empty stack
-    if (topCard) {
-      const topCardDisc = this.deck.topCard(PileId.Discard);
-      if (topCardDisc) {
-        topCardDisc.flipBack(this);
-        topCard.reposition(PileId.Discard, topCardDisc.position + 1);
-      } else {
-        topCard.reposition(PileId.Discard, 0);
-      }
-      topCard.flip(this);
-    } else {
-      let currentTop = this.deck.topCard(PileId.Discard);
-      let position = 0;
-
-      while (currentTop) {
-        currentTop.reposition(PileId.Stock, position);
-        currentTop.flipBack(this);
-        position += 1;
-        currentTop = this.deck.topCard(PileId.Discard);
-      }
-
-      if (position > 0) {
-        this.score -= 100;
-      }
-    }
-  }
-
   public flipScore(cardStack: PileId): void {
     if (TABLEAU_PILES.includes(cardStack)) {
       this.score += 5;
@@ -237,21 +195,8 @@ export default class GameState extends Phaser.Scene {
   }
 
   public dropScore(zoneStack: PileId, cardStack: PileId): void {
-    // Waste to tableau
-    if (cardStack === PileId.Discard && TABLEAU_PILES.includes(zoneStack)) {
-      this.score += 5;
-    }
-
-    // Waste to foundation
-    else if (
-      cardStack === PileId.Discard &&
-      FOUNDATION_PILES.includes(zoneStack)
-    ) {
-      this.score += 10;
-    }
-
     // Tableau to foundation
-    else if (
+    if (
       TABLEAU_PILES.includes(cardStack) &&
       FOUNDATION_PILES.includes(zoneStack)
     ) {
