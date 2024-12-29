@@ -2,7 +2,7 @@ import * as Phaser from "phaser";
 
 import Deck from "./Deck";
 import Card from "./Card";
-import { FOUNDATION_PILES, PileId, TABLEAU_PILES } from "./constants/table";
+import { CELL_PILES, FOUNDATION_PILES, PileId, TABLEAU_PILES } from "./constants/table";
 import { STACK_DRAG_OFFSET, SUIT_COLOR } from "./constants/deck";
 import { Pile } from "./Pile";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants/screen";
@@ -251,7 +251,8 @@ export default class GameState extends Phaser.Scene {
     
     // Potentially unsafe!
     const pileId = dropZone.name as PileId;
-
+    
+    console.log(pileId);
     // Get top card on current stack
     const topCard = this.deck.topCard(pileId);
     const oldCardPile = card.pile;
@@ -260,9 +261,10 @@ export default class GameState extends Phaser.Scene {
     if (!topCard) {
       if (
         (card.value === 13 && TABLEAU_PILES.includes(pileId)) ||
-        (card.value === 1 && FOUNDATION_PILES.includes(pileId))
+        (card.value === 1 && FOUNDATION_PILES.includes(pileId)) ||
+        (this.dragChildren.length === 1 && CELL_PILES.includes(pileId)) //This line is what handles the freecell dropping
       ) {
-        this.dropScore(pileId, card.pile);
+        //this.dropScore(pileId, card.pile);
         card.reposition(pileId, 0);
         dropped = true;
       }
