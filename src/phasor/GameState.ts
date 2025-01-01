@@ -316,12 +316,23 @@ export default class GameState extends Phaser.Scene {
   public pointerUpCard(card: Card) {
     if (!this.isDragging) {
       
-      for (const pile of this.foundationPiles) {
-        if (!FOUNDATION_PILES.includes(card.pile) && this.dropCard(card,pile)) {
-          console.log("moving card to foundation pile");
-          break;
+       // Populate drag children
+      this.dragChildren = [];
+      if (TABLEAU_PILES.includes(card.pile)) {
+        this.dragChildren = this.deck.cardChildren(card);
+      } else {
+        this.dragChildren.push(card);
+      }
+
+      if (this.dragChildren.length <= 1){
+        for (const pile of this.foundationPiles) {
+          if (!FOUNDATION_PILES.includes(card.pile) && this.dropCard(card,pile)) {
+            console.log("moving card to foundation pile");
+            break;
+          }
         }
       }
+
       console.log("The card was clicked!");
     }
     else {
