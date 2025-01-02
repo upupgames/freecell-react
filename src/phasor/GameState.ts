@@ -95,6 +95,7 @@ export default class GameState extends Phaser.Scene {
         gameObject: Phaser.GameObjects.GameObject
       ) => {
         if (gameObject instanceof Card) {
+          console.log("dragend");
           this.dragCardEnd();
         }
       },
@@ -110,6 +111,7 @@ export default class GameState extends Phaser.Scene {
         dropZone: Phaser.GameObjects.GameObject
       ) => {
         if (gameObject instanceof Card) {
+          console.log("drop");
           this.dropCard(gameObject, dropZone);
         }
       },
