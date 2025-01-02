@@ -28,7 +28,7 @@ export default class Deck {
     for (let cardIndex = 0; cardIndex < NUM_CARDS; cardIndex += 1) {
       const col = cardIndex % 8;
       const row = Math.floor(cardIndex / 8);
-      this.cards[cardIndex].setRepositionAnimation(TABLEAU_PILES[col], row);
+      this.cards[cardIndex].instantReposition(TABLEAU_PILES[col], row);
     }
   }
 

@@ -30,6 +30,8 @@ export default class GameState extends Phaser.Scene {
 
   private isDragging : boolean = false;
 
+  private cardTweens: Phaser.Types.Tweens.TweenBuilderConfig[] = [];
+
   public constructor() {
     super(sceneConfig);
   }
@@ -239,6 +241,7 @@ export default class GameState extends Phaser.Scene {
     this.dragChildren.forEach((child: Card) => {
       child.setRepositionAnimation(this, child.pile, child.position);
     });
+    this.playTweens();
   }
 
   public dragCard(_card: Card, dragX: number, dragY: number): void {
@@ -350,6 +353,23 @@ export default class GameState extends Phaser.Scene {
     }
 
     return maxCards;
+  }
+
+  public addTweenToChain(tweenConfig: Phaser.Types.Tweens.TweenBuilderConfig): void {
+    this.cardTweens.push(tweenConfig);
+  }
+
+  private playTweens(): void {
+    if (this.cardTweens.length > 0){
+      this.tweens.chain({
+        tweens: this.cardTweens,
+      });
+    }
+    this.clearTweens();
+  }
+
+  private clearTweens(): void {
+    this.cardTweens = []
   }
 
   public update(): void {

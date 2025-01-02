@@ -14,6 +14,7 @@ import {
   TABLEAU_PILES,
   CELL_PILES,
 } from "./constants/table";
+import GameState from "./GameState";
 
 export default class Card extends Phaser.GameObjects.Sprite {
   public suit: Suit;
@@ -42,32 +43,33 @@ export default class Card extends Phaser.GameObjects.Sprite {
     this.setInteractive();
   }
 
-  public setRepositionAnimation(scene: Phaser.Scene, pile: PileId, position: number): void {
+  public setRepositionAnimation(scene: GameState, pile: PileId, position: number): void {
     this.pile = pile;
     this.position = position;
+
+    let xPos: number = 0;
+    let yPos: number = 0;
 
     this.setDepth(this.position + 10);
 
     if (TABLEAU_PILES.includes(this.pile)) {
-      this.setPosition(
-        PILE_POSITIONS[this.pile].x,
-        PILE_POSITIONS[this.pile].y + position * STACK_OFFSET
-      );
+      xPos =  PILE_POSITIONS[this.pile].x;
+      yPos = PILE_POSITIONS[this.pile].y + position * STACK_OFFSET;
     } else if (FOUNDATION_PILES.includes(this.pile) || CELL_PILES.includes(this.pile)) {
-      this.setPosition(
-        PILE_POSITIONS[this.pile].x,
-        PILE_POSITIONS[this.pile].y
-      );
+      xPos =  PILE_POSITIONS[this.pile].x;
+      yPos = PILE_POSITIONS[this.pile].y;
     }
 
-    var tween = scene.tweens.add({
+    const thisCardTween: Phaser.Types.Tweens.TweenBuilderConfig = {
       targets: this,
-      x: 600,
-      y: 0,
+      x: xPos,
+      y: yPos,
       ease: 'Power1',
       duration: 200,
-      paused: true,
-    });
+    }
+    
+    scene.addTweenToChain(thisCardTween);
+    
   }
 
   public instantReposition(pile: PileId, position: number): void {
