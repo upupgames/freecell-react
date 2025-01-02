@@ -255,7 +255,6 @@ export default class GameState extends Phaser.Scene {
   // eslint-disable-next-line
   public dropCard(card: Card, dropZone: Phaser.GameObjects.GameObject): boolean {
     
-    
     let dropped = false;
     
     // Potentially unsafe!
@@ -342,6 +341,7 @@ export default class GameState extends Phaser.Scene {
       console.log("The card was dragged!");
     }
     this.isDragging = false;
+    this.playTweens();
   }
 
   public determineMaxCardsForMove(): number {
