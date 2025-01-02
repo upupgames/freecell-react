@@ -42,7 +42,35 @@ export default class Card extends Phaser.GameObjects.Sprite {
     this.setInteractive();
   }
 
-  public reposition(pile: PileId, position: number): void {
+  public setRepositionAnimation(scene: Phaser.Scene, pile: PileId, position: number): void {
+    this.pile = pile;
+    this.position = position;
+
+    this.setDepth(this.position + 10);
+
+    if (TABLEAU_PILES.includes(this.pile)) {
+      this.setPosition(
+        PILE_POSITIONS[this.pile].x,
+        PILE_POSITIONS[this.pile].y + position * STACK_OFFSET
+      );
+    } else if (FOUNDATION_PILES.includes(this.pile) || CELL_PILES.includes(this.pile)) {
+      this.setPosition(
+        PILE_POSITIONS[this.pile].x,
+        PILE_POSITIONS[this.pile].y
+      );
+    }
+
+    var tween = scene.tweens.add({
+      targets: this,
+      x: 600,
+      y: 0,
+      ease: 'Power1',
+      duration: 200,
+      paused: true,
+    });
+  }
+
+  public instantReposition(pile: PileId, position: number): void {
     this.pile = pile;
     this.position = position;
 

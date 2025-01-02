@@ -237,7 +237,7 @@ export default class GameState extends Phaser.Scene {
   public dragCardEnd(): void {
     // Drop all other cards on top
     this.dragChildren.forEach((child: Card) => {
-      child.reposition(child.pile, child.position);
+      child.setRepositionAnimation(this, child.pile, child.position);
     });
   }
 
@@ -271,7 +271,7 @@ export default class GameState extends Phaser.Scene {
         (this.dragChildren.length === 1 && CELL_PILES.includes(pileId)) //This line is what handles the freecell dropping
       ) {
         //this.dropScore(pileId, card.pile);
-        card.reposition(pileId, 0);
+        card.setRepositionAnimation(this, pileId, 0);
         dropped = true;
       }
     }
@@ -283,7 +283,7 @@ export default class GameState extends Phaser.Scene {
         card.value === topCard.value - 1
       ) {
         this.dropScore(pileId, card.pile);
-        card.reposition(pileId, topCard.position + 1);
+        card.setRepositionAnimation(this, pileId, topCard.position + 1);
         dropped = true;
       }
     }
@@ -292,7 +292,7 @@ export default class GameState extends Phaser.Scene {
     else if (FOUNDATION_PILES.includes(pileId)) {
       if (card.suit === topCard.suit && card.value === topCard.value + 1) {
         this.dropScore(pileId, card.pile);
-        card.reposition(pileId, topCard.position + 1);
+        card.setRepositionAnimation(this, pileId, topCard.position + 1);
         dropped = true;
       }
     }
@@ -300,7 +300,7 @@ export default class GameState extends Phaser.Scene {
     // Drop all other cards on top
 
     for (let i = 1; i < this.dragChildren.length; i += 1) {
-      this.dragChildren[i].reposition(card.pile, card.position + i);
+      this.dragChildren[i].setRepositionAnimation(this, card.pile, card.position + i);
     }
 
     // Flip top card on past stack
