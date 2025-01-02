@@ -275,7 +275,7 @@ export default class GameState extends Phaser.Scene {
         (this.dragChildren.length === 1 && CELL_PILES.includes(pileId)) //This line is what handles the freecell dropping
       ) {
         //this.dropScore(pileId, card.pile);
-        card.setRepositionAnimation(this, pileId, 0);
+        this.createSubmovesForAnimation(card, pileId, 0);
         dropped = true;
       }
     }
@@ -287,7 +287,7 @@ export default class GameState extends Phaser.Scene {
         card.value === topCard.value - 1
       ) {
         this.dropScore(pileId, card.pile);
-        card.setRepositionAnimation(this, pileId, topCard.position + 1);
+        this.createSubmovesForAnimation(card, pileId, topCard.position + 1);
         dropped = true;
       }
     }
@@ -296,16 +296,18 @@ export default class GameState extends Phaser.Scene {
     else if (FOUNDATION_PILES.includes(pileId)) {
       if (card.suit === topCard.suit && card.value === topCard.value + 1) {
         this.dropScore(pileId, card.pile);
-        card.setRepositionAnimation(this, pileId, topCard.position + 1);
+        this.createSubmovesForAnimation(card, pileId, topCard.position + 1);
         dropped = true;
       }
     }
 
     // Drop all other cards on top
 
+    /*
     for (let i = 1; i < this.dragChildren.length; i += 1) {
       this.dragChildren[i].setRepositionAnimation(this, card.pile, card.position + i);
     }
+    */
 
     // Flip top card on past stack
     const topCardNew = this.deck.topCard(oldCardPile);
@@ -344,6 +346,25 @@ export default class GameState extends Phaser.Scene {
     }
     this.isDragging = false;
     this.playTweens();
+  }
+
+  private createSubmovesForAnimation(card: Card, pile: PileId, position: number): void {
+    for (let i = 0; i < this.dragChildren.length; i += 1) {
+      this.dragChildren[i].instantReposition(card.pile, card.position + i);
+    }
+
+    for (let i = this.dragChildren.length - 1; i > 0; i -= 1) {
+      for (const cell of this.cellPiles) {
+        if (!this.deck.topCard(cell.pileId)) {
+          this.dragChildren[i].setRepositionAnimation(this, cell.pileId, 0);
+          break;
+        }
+      }
+    }
+
+    for (let i = 0; i < this.dragChildren.length; i +=1) {
+      this.dragChildren[i].setRepositionAnimation(this, pile, position + i);
+    }
   }
 
   public determineMaxCardsForMove(): number {
